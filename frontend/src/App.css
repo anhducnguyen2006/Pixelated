@@ -1,0 +1,138 @@
+/* General page styling */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #89fffd 0%, #ef32d9 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-size: 3rem;
+  color: white;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Main container for the form */
+.container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+/*
+input[type="file"] {
+  padding: 10px;
+  background-color: #ef32d9;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+}
+
+input[type="file"]:hover {
+  background-color: #89fffd;
+}
+*/
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  padding: 10px;
+  background-color: #ef32d9;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-file-upload:hover {
+  background-color: #89fffd;
+}
+
+/* Style for displaying the file name */
+.file-name {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #333;
+  font-style: italic;
+}
+input[type="range"] {
+  width: 80%;
+  margin-top: 10px;
+}
+
+button {
+  padding: 12px 25px;
+  font-size: 1rem;
+  color: white;
+  background-color: #ef32d9;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #89fffd;
+  transform: translateY(-3px);
+}
+
+/* Pixelated Image Display */
+.image-container {
+  margin-top: 30px;
+}
+
+.image-container img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.image-container img:hover {
+  transform: scale(1.05);
+}
+
+/* Heading for the pixelated image */
+h2 {
+  color: #ef32d9;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.download-button {
+  padding: 12px 25px;
+  font-size: 1rem;
+  color: white;
+  background-color: #6a00f4;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 20px;
+}
+
+.download-button:hover {
+  background-color: #a044ff;
+  transform: translateY(-3px);
+}
