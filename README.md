@@ -25,7 +25,7 @@ Runs the app in the development mode.\
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-# **PORT::5000 in use --> in terminal:
+# **PORT::5000 in use --> in terminal:**
 
 [https://stackoverflow.com/questions/52468827/port-5000-in-use-constantly]
 
