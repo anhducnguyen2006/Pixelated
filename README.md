@@ -8,15 +8,15 @@ Have fun during your stay here!
 
 1) **First download to your Python library necessary modules:**
 
-### `pip install -r requirements.txt`
+`pip install -r requirements.txt`
 
 2) **Then run the server (port::5000) from the frontend directory:**
 
-### `node server.js`
+`node server.js`
 
 3) **Next, in the backend directory, you can run:**
 
-### `npm start`
+`npm start`
 
 Runs the app in the development mode.\
 
