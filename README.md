@@ -1,4 +1,4 @@
-## **Pixelated Image-Generator**
+# **Pixelated Image-Generator**
 
 Welcome to our Mini Project's page! It's Anh Duc Nguyen and Toai Nguyen here.
 
@@ -25,11 +25,12 @@ Runs the app in the development mode.\
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-## **PORT::5000 in use --> in terminal:
+# **PORT::5000 in use --> in terminal:
 
-[Link Text](#https://stackoverflow.com/questions/52468827/port-5000-in-use-constantly)
-[Link Text](#https://medium.com/pythonistas/port-5000-already-in-use-macos-monterey-issue-d86b02edd36c)
+[https://stackoverflow.com/questions/52468827/port-5000-in-use-constantly]
 
 `kill -9 PID`
 
-If using Mac: 
+## **If using Mac:** 
+
+[https://medium.com/pythonistas/port-5000-already-in-use-macos-monterey-issue-d86b02edd36c]
