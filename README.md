@@ -1,6 +1,6 @@
 # **Pixelated Image-Generator**
 
-Welcome to our Mini Project's page! It's Anh Duc Nguyen and Toai Nguyen here.
+Welcome to my Mini Project's page! It's Anh Duc Nguyen here.
 
 The website's aim is to return a pixelated version of the image that the user has uploaded :)
 
