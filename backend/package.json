@@ -1,4 +1,11 @@
 {
+  "name": "pixelated-backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "NODE_ENV=development node server.js"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.0",

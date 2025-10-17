@@ -3,16 +3,27 @@ const multer = require('multer');
 const cors = require('cors');
 const { spawn } = require('child_process');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 app.use(cors());
-app.use('/uploads', express.static('uploads'));
+
+// Resolve absolute paths relative to this file, not the working directory
+const UPLOADS_DIR = path.join(__dirname, 'uploads');
+const PY_APP = path.join(__dirname, 'app.py');
+
+// Ensure uploads directory exists
+if (!fs.existsSync(UPLOADS_DIR)) {
+    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+}
+
+app.use('/uploads', express.static(UPLOADS_DIR));
 
 
 // Set up file storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+        cb(null, UPLOADS_DIR);
     },
     filename: (req, file, cb) => {
         cb(null, 'input.png');
@@ -22,10 +33,12 @@ const upload = multer({ storage: storage });
 
 // Route to handle image upload and pixelation
 app.post('/upload', upload.single('image'), (req, res) => {
-    const pixelSize = req.body.pixelSize || 10; // Default pixel size if not provided
+    const pixelSize = parseInt(req.body.pixelSize, 10) || 10; // Default pixel size if not provided
     //console.log("RECEIVED!");
     // Spawn Python process to pixelate the image
-    const pythonProcess = spawn('python3', ['-u', 'app.py', pixelSize]);
+    const pythonProcess = spawn('python3', ['-u', PY_APP, String(pixelSize)], {
+        cwd: __dirname,
+    });
     //pythonProcess.stdout.on('data', (data) => {
       //  console.log(`stdout: ${data}`);
     //});
@@ -35,7 +48,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
     //});
     pythonProcess.on('close', (code) => {
         if (code === 0) {
-            const outputUrl = `http://localhost:5000/uploads/output.png`;
+            const outputUrl = `http://localhost:${PORT}/uploads/output.png`;
             res.json({ imageUrl: outputUrl }); 
         } else {
             res.status(500).send("Image processing failed");
