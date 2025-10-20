@@ -31,21 +31,26 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+// Simple health endpoint
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok' });
+});
+
 // Route to handle image upload and pixelation
 app.post('/upload', upload.single('image'), (req, res) => {
     const pixelSize = parseInt(req.body.pixelSize, 10) || 10; // Default pixel size if not provided
     //console.log("RECEIVED!");
     // Spawn Python process to pixelate the image
-    const pythonProcess = spawn('python3', ['-u', PY_APP, String(pixelSize)], {
+        const pythonProcess = spawn('python3', ['-u', PY_APP, String(pixelSize)], {
         cwd: __dirname,
     });
-    //pythonProcess.stdout.on('data', (data) => {
-      //  console.log(`stdout: ${data}`);
-    //});
+        pythonProcess.stdout.on('data', (data) => {
+                console.log(`[python stdout] ${data}`);
+        });
     
-    //pythonProcess.stderr.on('data', (data) => {
-      //  console.error(`stderr: ${data}`);
-    //});
+        pythonProcess.stderr.on('data', (data) => {
+                console.error(`[python stderr] ${data}`);
+        });
     pythonProcess.on('close', (code) => {
         if (code === 0) {
             const outputUrl = `http://localhost:${PORT}/uploads/output.png`;

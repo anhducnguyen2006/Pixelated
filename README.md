@@ -1,70 +1,73 @@
-# **Pixelated Image-Generator**
+# Pixelated Image Generator
 
-Welcome to my Mini Project's page! It's Anh Duc Nguyen here.
+Transform images into retro pixel art with a React UI, a Node/Express API, and a Python (Pillow) worker.
 
-The website's aim is to return a pixelated version of the image that the user has uploaded :)
+## Features
 
-Have fun during your stay here!
+- React UI with slider-controlled pixel size and instant preview/download
+- Node/Express API with Multer upload, CORS, and static file serving
+- Python Pillow worker (spawned via child_process) for pixelation
+- One-command dev runner and Dockerized stack
 
-1. Install Python dependency (for image processing):
+## Architecture
 
-  `pip install -r requirements.txt`
+- Frontend (React, CRA): sends `multipart/form-data` to the API and displays the processed image
+- Backend (Node/Express): receives the image, stores it in `uploads/`, spawns Python to process, serves `/uploads/output.png`
+- Worker (Python, Pillow): downscales and upscales using `Image.NEAREST` to produce a crisp pixel effect
 
-1. Start the backend API (port 5000 by default):
+```text
+React (port 3001) ──HTTP──> Express (port 5050) ──spawn──> Python (Pillow)
+                                    │
+                                    └──── serves /uploads/output.png
+```
 
-- Open a terminal in `backend/`
-- Install Node deps once: `npm install`
-- Start server: `npm start`
+## Quick Start (local)
 
- The backend will:
+From the repo root:
 
-- Accept uploads at `POST http://localhost:5000/upload`
-- Save files under `backend/uploads`
-- Call `app.py` to pixelate the image using Pillow
+```bash
+npm install
+npm run setup
+npm run dev
+```
 
-1. Start the React frontend (port 3000):
+Defaults: backend <http://localhost:5050>, frontend <http://localhost:3001>
 
-- Open another terminal in `frontend/`
-- Install Node deps once: `npm install`
-- Start dev server: `npm start`
+Environment variables:
 
-1. Open the app at [http://localhost:3000](http://localhost:3000)
+- `BACKEND_PORT` (default 5050)
+- `FRONTEND_PORT` (default 3001)
+- `REACT_APP_API_BASE_URL` (frontend API target; auto-set by root scripts)
 
-The page will reload when you make changes. You may also see any lint errors in the console.
+## Quick Start (Docker)
+
+```bash
+docker compose up -d --build
+```
+
+Open <http://localhost:3001>
+
+Logs:
+
+```bash
+docker compose logs -f --tail=100
+```
+
+Env file example: see `.env.example`.
+
+## API
+
+- `POST /upload`
+  - form-data: `image` (file), `pixelSize` (int, default 10)
+  - returns: `{ imageUrl: string }`
+- `GET /health` → `{ status: 'ok' }`
 
 ## Troubleshooting
 
-## Port 5000 already in use
+- Port conflicts (macOS Control Center often uses :5000): use `BACKEND_PORT=5050`.
+- Python not found locally: install Python 3 (`brew install python`) then `pip install -r requirements.txt`.
+- Docker build errors for Pillow: the backend Dockerfile installs the needed libs; rebuild with `docker compose build backend`.
 
-[https://stackoverflow.com/questions/52468827/port-5000-in-use-constantly]
+## License
 
-`kill -9 PID`
-
-Or start the backend on a different port and point the frontend to it:
-
-- In a new terminal:
-
-  - `cd backend`
-  - `PORT=5050 npm start`
-
-- In another terminal, set the frontend to use that API base:
-
-  - `cd frontend`
-  - `REACT_APP_API_BASE_URL=http://localhost:5050 npm start`
-
-## **If using Mac:**
-
-[https://medium.com/pythonistas/port-5000-already-in-use-macos-monterey-issue-d86b02edd36c]
-
-## Python not found
-
-If the backend logs show an error spawning `python3`, ensure Python 3 is installed and available on PATH. On macOS you can install via Homebrew and verify:
-
-- `brew install python`
-- `python3 --version`
-
-## Pillow errors
-
-If you see errors in `app.py`, reinstall dependencies from project root:
-
-- `pip install -r requirements.txt`
+MIT © Anh Duc Nguyen

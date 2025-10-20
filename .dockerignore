@@ -1,0 +1,20 @@
+# VCS
+.git
+.gitignore
+
+# Node dependencies
+node_modules
+backend/node_modules
+frontend/node_modules
+
+# Build/outputs
+frontend/build
+backend/uploads
+
+# OS / editor
+.DS_Store
+.vscode
+
+# Logs
+npm-debug.log*
+yarn-error.log*
